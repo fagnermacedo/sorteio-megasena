@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 100px;
+  height: 400px;
+}
+
+.formularioCalculaCusto {
+  border: solid 1px;
+  background-color: #ede0e0;
+}
+
+.formBolao {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#numApostas {
+  max-width: 40px;
+  height: 20px;
+}
+
+#numNumeros {
+  max-width: 40px;
+  height: 20px;
+}
+
+#numCotas {
+  max-width: 40px;
+  height: 20px;
+}
+
+#calculaCusto {
+  height: 50px;
+  width: 100px;
+  background-color: blue;
+  color: white;
+}
+#resultado {
+  margin: 0 20px;
+  height: 60px;
+}
+/**####################################*/
+.formularioRealizaSorteio {
+  border: solid 1px;
+  background-color: #ede0e0;
+}
+
+.formSorteio {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#numeroInicial {
+  max-width: 40px;
+  height: 20px;
+}
+
+#numeroFinal {
+  max-width: 40px;
+  height: 20px;
+}
+
+#numeroTotalJogo {
+  max-width: 40px;
+  height: 20px;
+}
+
+#sortearNumerosLayout {
+  height: 50px;
+  width: 100px;
+  background-color: blue;
+  color: white;
+}
+#resultado1 {
+  margin: 0 20px;
+  height: 100px;
+}
+@media (max-width: 600px) {
+  .cabecalho {
+    height: 200px;
+    font-size: 12px;
+
+    .titulo {
+      height: 60px;
+      padding-bottom: 40px;
+    }
+  }
+  .container {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #resultado {
+    height: 100px;
+    height: 50px;
+    max-width: 340px;
+  }
+
+  .formBolao {
+    display: flex;
+  }
+
+  #resultado1 {
+    height: 100px;
+    height: 80px;
+    max-width: 340px;
+  }
+
+  .formularioCalculaCusto {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .formularioRealizaSorteio {
+    font-size: 12px;
+    margin-bottom: 60px;
+    padding-bottom: 10px;
+  }
+}

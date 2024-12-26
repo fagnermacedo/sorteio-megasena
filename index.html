@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+    <title>Sorteio de números</title>
+  </head>
+  <body>
+    <div class="cabecalho">
+      <header class="titulo_header_pagina">
+        <h1>Boa sorte</h1>
+      </header>
+      <h1 class="titulo">
+        "Quem não arrisca não petisca". Bora ficar rico.....
+      </h1>
+    </div>
+
+    <div class="container">
+      <div class="formularioCalculaCusto">
+        <form id="formBolao" class="formBolao">
+          <label for="numApostas"
+            >Número de Apostas:
+            <strong>Total de jogos / apostas por talão.</strong></label
+          >
+          <input type="number" id="numApostas" required /> <br />
+          <label for="numNumeros"
+            >Números por Aposta:
+            <strong>Total de números por aposta.</strong></label
+          >
+          <input type="number" id="numNumeros" required /> <br />
+          <label for="numCotas">Número total de cotas, apostadores.</label>
+          <input type="number" id="numCotas" required /> <br />
+          <button
+            type="button"
+            id="calculaCusto"
+            onclick="calcularCustoBolao()"
+          >
+            Calcular Custo
+          </button>
+        </form>
+        <textarea id="resultado" rows="2" cols="50" readonly></textarea>
+      </div>
+
+      <div class="formularioRealizaSorteio">
+        <form id="formSorteio" class="formSorteio">
+          <label for="numeroInicial">Número Inicial:</label>
+          <input type="number" id="numeroInicial" required />
+          <br />
+          <label for="numeroFinal">Número Final:</label>
+          <input type="number" id="numeroFinal" required />
+          <br />
+          <label for="numeroTotalJogo">Número Total por Jogo:</label>
+          <input type="number" id="numeroTotalJogo" required />
+          <br />
+          <button type="button" id="sortearNumerosLayout" onclick="sortearNumeros()">
+            Sortear Números
+          </button>
+        </form>
+        <textarea
+          id="resultado1"
+          class="resultado1"
+          rows="10"
+          cols="50"
+        ></textarea>
+      </div>
+    </div>
+  </body>
+</html>
