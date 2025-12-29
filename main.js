@@ -40,7 +40,7 @@ async function obterTotalVisitas() {
 
 async function dispararWorkflowAcesso() {
     // ATENÇÃO: Substitua pelo seu Token ou use uma Secret se estiver usando Proxy
-    const TOKEN = 'SEU_TOKEN_AQUI'; 
+    const TOKEN = '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'; 
     const REPO_URL = 'https://api.github.com/repos/fagnermacedo/sorteio-megasena/dispatches';
 
     try {
