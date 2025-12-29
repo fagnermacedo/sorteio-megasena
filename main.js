@@ -1,54 +1,50 @@
 /**
  * main.js - Sorteio Mega-Sena & Auditoria de Acesso
- * Desenvolvido para: Fagner Sá
+ */
 
-// Tabela oficial de preços (Recibo Unitário)
+// 1. DEFINIÇÃO DOS PREÇOS (Deve estar no topo do arquivo)
 const PRECO_UNITARIO = {
     6: 5.00, 7: 35.00, 8: 168.00, 9: 504.00, 10: 1260.00,
     11: 2772.00, 12: 5544.00, 13: 10296.00, 14: 18018.00, 15: 30030.00,
     16: 48048.00, 17: 74256.00, 18: 111384.00, 19: 162792.00, 20: 232560.00
 };
 
-// Executa ao carregar a página
 window.onload = function() {
     atualizarDataModificacao();
     obterTotalVisitas();
     dispararWorkflowAcesso();
 };
 
-/**
- * 1. LOGICA DE AUDITORIA E CONTADOR
- */
+// --- FUNÇÕES DE AUDITORIA ---
 
 function atualizarDataModificacao() {
     const data = new Date(document.lastModified);
     const opcoes = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-    document.getElementById('dataUpdate').innerText = `Atualizado em: ${data.toLocaleString('pt-BR', opcoes)}`;
+    const elemento = document.getElementById('dataUpdate');
+    if(elemento) elemento.innerText = `Atualizado em: ${data.toLocaleString('pt-BR', opcoes)}`;
 }
 
 async function obterTotalVisitas() {
     try {
-        // Busca o total direto do arquivo JSON no repositório
         const res = await fetch('https://raw.githubusercontent.com/fagnermacedo/sorteio-megasena/main/acessos.json');
         const dados = await res.json();
-        document.getElementById('valorVisitas').innerText = dados.total_visitas;
+        const elemento = document.getElementById('valorVisitas');
+        if(elemento) elemento.innerText = dados.total_visitas;
     } catch (e) {
         console.error("Erro ao ler JSON de visitas:", e);
-        document.getElementById('valorVisitas').innerText = "0";
     }
 }
 
 async function dispararWorkflowAcesso() {
-    // ATENÇÃO: Substitua pelo seu Token ou use uma Secret se estiver usando Proxy
-    const TOKEN = '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'; 
+    const TOKEN = 'SEU_TOKEN_AQUI'; // Lembre-se de colocar seu PAT aqui
     const REPO_URL = 'https://api.github.com/repos/fagnermacedo/sorteio-megasena/dispatches';
 
+    if (TOKEN === 'SEU_TOKEN_AQUI') return;
+
     try {
-        // Obtém IP do visitante para o log
         const ipRes = await fetch('https://api.ipify.org?format=json');
         const ipData = await ipRes.json();
 
-        // Dispara o evento 'log_acesso' para o Workflow contador.yml
         await fetch(REPO_URL, {
             method: 'POST',
             headers: {
@@ -65,38 +61,37 @@ async function dispararWorkflowAcesso() {
             })
         });
     } catch (e) {
-        console.warn("Workflow não disparado (Token ausente ou erro de rede).");
+        console.warn("Workflow não disparado.");
     }
 }
 
-/**
- * 2. LOGICA DE NEGÓCIO (BOLÃO E SORTEIO)
- */
+// --- FUNÇÕES DE LÓGICA (CÁLCULO E SORTEIO) ---
 
 function calcularCusto() {
-    const qtdJogos = Number(document.getElementById('qtdApostas').value) || 0;
-    const dezenasPorJogo = Number(document.getElementById('numerosPorAposta').value) || 6;
-    const cotas = Number(document.getElementById('qtdCotas').value) || 1;
-
-    const valorUnitario = PRECO_UNITARIO[dezenasPorJogo] || 0;
-    
-    // Cálculo: (Valor de 1 jogo de N dezenas) * Quantidade de jogos
-    const custoTotal = valorUnitario * qtdJogos;
-    const valorPorCota = custoTotal / cotas;
-
+    const qtdJogosInput = document.getElementById('qtdApostas');
+    const numDezenasInput = document.getElementById('numerosPorAposta');
+    const qtdCotasInput = document.getElementById('qtdCotas');
     const divResultado = document.getElementById('resultadoCusto');
 
-    if (custoTotal === 0) {
-        divResultado.innerHTML = "Selecione valores válidos (6 a 20 dezenas).";
+    const jogos = Number(qtdJogosInput.value);
+    const dezenas = Number(numDezenasInput.value);
+    const cotas = Number(qtdCotasInput.value) || 1;
+
+    // Verifica se a dezena existe na nossa tabela de preços
+    const valorUnitario = PRECO_UNITARIO[dezenas];
+
+    if (!valorUnitario) {
+        divResultado.innerHTML = "Selecione entre 6 e 20 dezenas.";
         return;
     }
+
+    const custoTotal = valorUnitario * jogos;
+    const valorPorCota = custoTotal / cotas;
 
     divResultado.innerHTML = `
         <strong>Custo Total:</strong> R$ ${custoTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}<br>
         <strong>Valor por Cota:</strong> R$ ${valorPorCota.toLocaleString('pt-BR', {minimumFractionDigits: 2})}<br>
-        <small style="color: #82c91e; font-size: 0.7rem;">
-            * Calculado para ${qtdJogos} apostas de ${dezenasPorJogo} números cada.
-        </small>
+        <small style="color: #82c91e; font-size: 0.7rem;">* ${jogos} jogos de ${dezenas} dezenas.</small>
     `;
 }
 
@@ -105,16 +100,14 @@ function sortearNumeros() {
     const qtdDezenas = Number(document.getElementById('numerosPorAposta').value) || 6;
     const grid = document.getElementById('gridSorteio');
     
-    grid.innerHTML = ""; // Limpa a tela
+    grid.innerHTML = ""; 
 
     for (let i = 1; i <= totalApostas; i++) {
         let sorteados = new Set();
         while (sorteados.size < qtdDezenas) {
-            const num = Math.floor(Math.random() * 60) + 1;
-            sorteados.add(num);
+            sorteados.add(Math.floor(Math.random() * 60) + 1);
         }
 
-        // Ordenar e formatar com zero à esquerda (ex: 05)
         const listaFinal = Array.from(sorteados)
                                 .sort((a, b) => a - b)
                                 .map(n => n.toString().padStart(2, '0'));
@@ -128,13 +121,11 @@ function exibirJogoNaTela(index, dezenas) {
     const containerJogo = document.createElement('div');
     containerJogo.className = 'linha-jogo';
 
-    // Sequencial (01, 02...)
     const spanSeq = document.createElement('span');
     spanSeq.className = 'sequencial';
     spanSeq.innerText = index.toString().padStart(2, '0');
     containerJogo.appendChild(spanSeq);
 
-    // Cria as bolinhas brancas
     dezenas.forEach(dezena => {
         const spanBola = document.createElement('span');
         spanBola.className = 'bola';
