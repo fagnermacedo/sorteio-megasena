@@ -1,3 +1,4 @@
+/* ================== LAYOUT ORIGINAL ================== */
 .container {
   display: flex;
   gap: 30px;
@@ -6,7 +7,8 @@
   height: 400px;
 }
 
-.formularioCalculaCusto {
+.formularioCalculaCusto,
+.formularioRealizaSorteio {
   border: solid 1px;
   background-color: #ede0e0;
 }
@@ -17,16 +19,8 @@
   padding: 20px;
 }
 
-#numApostas {
-  max-width: 40px;
-  height: 20px;
-}
-
-#numNumeros {
-  max-width: 40px;
-  height: 20px;
-}
-
+#numApostas,
+#numNumeros,
 #numCotas {
   max-width: 40px;
   height: 20px;
@@ -34,90 +28,64 @@
 
 #calculaCusto {
   height: 50px;
-  width: 100px;
+  width: 120px;
   background-color: blue;
   color: white;
+  margin-top: 10px;
 }
+
 #resultado {
   margin: 0 20px;
-  height: 60px;
-}
-/**####################################*/
-.formularioRealizaSorteio {
-  border: solid 1px;
-  background-color: #ede0e0;
+  height: 70px;
 }
 
-.formSorteio {
-  display: flex;
-  flex-direction: column;
+/* ================== REGRAS DO BOLÃO ================== */
+.regrasBolao {
   padding: 20px;
+  font-size: 13px;
 }
 
-#numeroInicial {
-  max-width: 40px;
-  height: 20px;
+.regrasBolao ul {
+  padding-left: 20px;
 }
 
-#numeroFinal {
-  max-width: 40px;
-  height: 20px;
+.regrasBolao li {
+  margin-bottom: 6px;
 }
 
-#numeroTotalJogo {
-  max-width: 40px;
-  height: 20px;
+/* ================== VALIDAÇÃO VISUAL ================== */
+.erro {
+  border: 2px solid red !important;
+  background-color: #ffecec;
 }
 
-#sortearNumerosLayout {
-  height: 50px;
-  width: 100px;
-  background-color: blue;
-  color: white;
+.erro-info {
+  color: red;
+  font-size: 11px;
+  margin-bottom: 8px;
+  display: none;
+  max-width: 220px;
 }
-#resultado1 {
-  margin: 0 20px;
-  height: 100px;
+
+/* Exibe a explicação ao passar o mouse */
+.erro:hover + .erro-info {
+  display: block;
 }
+
+/* ================== RESPONSIVO ================== */
 @media (max-width: 600px) {
-  .cabecalho {
-    height: 200px;
-    font-size: 12px;
-
-    .titulo {
-      height: 60px;
-      padding-bottom: 40px;
-    }
-  }
   .container {
     flex-direction: column;
     justify-content: center;
   }
 
-  #resultado {
-    height: 100px;
-    height: 50px;
-    max-width: 340px;
-  }
-
-  .formBolao {
-    display: flex;
-  }
-
-  #resultado1 {
-    height: 100px;
-    height: 80px;
-    max-width: 340px;
-  }
-
-  .formularioCalculaCusto {
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
-
+  .formularioCalculaCusto,
   .formularioRealizaSorteio {
     font-size: 12px;
-    margin-bottom: 60px;
-    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  #resultado {
+    max-width: 340px;
   }
 }
