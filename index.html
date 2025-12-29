@@ -1,76 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bolão Mega-Sena</title>
+
     <link rel="stylesheet" href="styles.css" />
     <script src="main.js"></script>
-    <title>Sorteio de números</title>
   </head>
+
   <body>
     <div class="cabecalho">
       <header class="titulo_header_pagina">
-        <h1>Boa sorte</h1>
+        <h1>Boa sorte 🍀</h1>
       </header>
-      <h1 class="titulo">
-        Prêmio estimado de 1 Bilhão esse ano (2025)
-      </h1>
+      <h1 class="titulo">Prêmio estimado de 1 Bilhão (2025)</h1>
     </div>
 
     <div class="container">
+      <!-- ================== FORMULÁRIO BOLÃO ================== -->
       <div class="formularioCalculaCusto">
-        <form id="formBolao" class="formBolao">
-          <label for="numApostas"
-            >Número de Apostas:
-            <strong>Total de jogos / apostas por talão.</strong></label
-          >
-          <input type="number" id="numApostas" required /> <br />
-          <label for="numNumeros"
-            >Números por Aposta:
-            <strong>Total de números por aposta.</strong></label
-          >
-          <input type="number" id="numNumeros" required /> <br />
-          <label for="numCotas">Número total de cotas, apostadores.</label>
-          <input type="number" id="numCotas" required /> <br />
-          <button
-            type="button"
-            id="calculaCusto"
-            onclick="calcularCustoBolao()"
-          >
+        <form id="formBolao" class="formBolao" novalidate>
+          <h3>Dados do Bolão</h3>
+
+          <label for="numApostas">
+            Número de Apostas
+            <strong>(máx. 10 por bolão)</strong>
+          </label>
+          <input type="number" id="numApostas" />
+          <div class="erro-info" id="erroApostas"></div>
+
+          <label for="numNumeros">
+            Números por Aposta
+            <strong>(6 a 20 números)</strong>
+          </label>
+          <input type="number" id="numNumeros" />
+          <div class="erro-info" id="erroNumeros"></div>
+
+          <label for="numCotas">
+            Total de Cotas
+            <strong>(mín. 2 / máx. 100)</strong>
+          </label>
+          <input type="number" id="numCotas" />
+          <div class="erro-info" id="erroCotas"></div>
+
+          <button type="button" id="calculaCusto">
             Calcular Custo
           </button>
         </form>
-        <textarea id="resultado" rows="2" cols="50" readonly></textarea>
-      </div>
 
-      <div class="formularioRealizaSorteio">
-        <form id="formSorteio" class="formSorteio">
-          <label for="numeroInicial">Número Inicial:</label>
-          <input type="number" id="numeroInicial" required />
-          <br />
-          <label for="numeroFinal">Número Final:</label>
-          <input type="number" id="numeroFinal" required />
-          <br />
-          <label for="numeroTotalJogo">Número Total por Jogo:</label>
-          <input type="number" id="numeroTotalJogo" required />
-          <br />
-          <button type="button" id="sortearNumerosLayout" onclick="sortearNumeros()">
-            Sortear Números
-          </button>
-        </form>
         <textarea
-          id="resultado1"
-          class="resultado1"
-          rows="10"
+          id="resultado"
+          rows="3"
           cols="50"
+          readonly
+          placeholder="Resultado do cálculo aparecerá aqui..."
         ></textarea>
       </div>
-    </div>
 
-    <!--
-    <script async src="https://cse.google.com/cse.js?cx=a20a4b9d442744d7d">
-    </script>
-    <div class="gcse-search"></div>
-    -->
+      <!-- ================== REGRAS DO BOLÃO ================== -->
+      <div class="formularioRealizaSorteio">
+        <div class="regrasBolao">
+          <h3>Regras do Bolão Mega-Sena</h3>
+          <ul>
+            <li>✔ Valor mínimo do bolão: <strong>R$ 18,00</strong></li>
+            <li>✔ Valor mínimo da cota: <strong>a partir de R$ 7,00</strong></li>
+            <li>✔ Mínimo de <strong>2</strong> cotas por bolão</li>
+            <li>✔ Máximo de <strong>100</strong> cotas por bolão</li>
+            <li>✔ Até <strong>10 apostas</strong> por bolão</li>
+            <li>✔ Todas as apostas devem ter a mesma quantidade de números</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
