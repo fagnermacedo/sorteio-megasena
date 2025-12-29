@@ -1,70 +1,101 @@
 body {
     font-family: Arial, sans-serif;
-    background: #ffffff;
+    background: #121212;
+    color: #f0f0f0;
+    margin: 0;
+    padding-bottom: 70px;
 }
 
 .container {
     display: flex;
-    gap: 40px;
-    padding: 20px;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px;
+    flex-wrap: wrap;
 }
 
 .box {
-    border: 1px solid #000;
+    background: #1e1e1e;
+    border: 1px solid #333;
     padding: 20px;
-    width: 300px;
-    background: #f1e7e7;
+    width: 450px; /* Um pouco mais largo para caber as 20 bolas */
+    border-radius: 8px;
 }
 
-label {
-    display: block;
-    margin-top: 10px;
-}
+h3 { color: #82c91e; margin-bottom: 20px; }
+
+label { display: block; margin-top: 15px; color: #aaa; font-size: 0.85rem; }
 
 input {
     width: 100%;
-    padding: 5px;
-}
-
-input.erro {
-    border: 2px solid red;
-    background-color: #ffecec;
-}
-
-input.erro:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    background: #333;
-    color: #fff;
-    padding: 5px;
-    font-size: 12px;
+    padding: 10px;
     margin-top: 5px;
     border-radius: 4px;
+    border: 1px solid #444;
+    background: #fff;
+    font-weight: bold;
 }
 
 button {
-    margin-top: 15px;
-    padding: 10px;
+    margin-top: 20px;
+    padding: 15px;
     width: 100%;
-    background: blue;
-    color: white;
+    background: #82c91e;
+    color: #000;
     border: none;
     cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.9;
+    font-weight: bold;
+    border-radius: 4px;
 }
 
 .resultado {
     margin-top: 15px;
-    background: #fff;
-    padding: 10px;
-    border: 1px solid #000;
+    background: #282828;
+    padding: 15px;
+    border-left: 4px solid #82c91e;
 }
 
-textarea {
-    margin-top: 15px;
+#resultadoSorteioGrid {
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.linha-jogo {
+    display: flex;
+    flex-wrap: wrap; /* Importante para jogos de 20 números */
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+
+.sequencial { color: #82c91e; font-weight: bold; min-width: 30px; }
+
+.bola {
+    background: #fff;
+    color: #000;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 4px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.assinatura { font-size: 0.7rem; color: #444; margin-top: 20px; text-align: center; }
+
+.footer-discreto {
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    height: 150px;
+    background: #000;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.75rem;
+    color: #666;
+    border-top: 1px solid #333;
 }
