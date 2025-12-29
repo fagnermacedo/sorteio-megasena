@@ -1,5 +1,5 @@
 body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     background: #121212;
     color: #e0e0e0;
     margin: 0;
@@ -27,8 +27,6 @@ h3 { color: #82c91e; margin-top: 0; border-bottom: 1px solid #333; padding-botto
 
 label { display: block; margin-top: 15px; font-size: 0.85rem; color: #aaa; }
 
-.info-fixa { color: #666; font-size: 0.8rem; margin-bottom: 15px; }
-
 input {
     width: 100%;
     padding: 12px;
@@ -52,10 +50,7 @@ button {
     font-weight: bold;
     text-transform: uppercase;
     border-radius: 6px;
-    transition: 0.3s;
 }
-
-button:hover { background: #6fb319; }
 
 .resultado {
     margin-top: 20px;
