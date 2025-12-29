@@ -1,98 +1,74 @@
-// ====================== TABELA DE REGRAS DO BOLÃO ======================
+// ====================== REGRAS DO BOLÃO ======================
 const regrasBolao = {
-  6: { apostas: 1, minCotas: 2, maxCotas: 8, minCota: 7, minBolao: 18 },
-  7: { apostas: 7, minCotas: 2, maxCotas: 50, minCota: 8, minBolao: 42 },
-  8: { apostas: 28, minCotas: 2, maxCotas: 100, minCota: 8, minBolao: 168 },
-  9: { apostas: 84, minCotas: 2, maxCotas: 100, minCota: 8, minBolao: 504 },
-  10: { apostas: 210, minCotas: 2, maxCotas: 100, minCota: 12.6, minBolao: 1260 },
-  11: { apostas: 462, minCotas: 2, maxCotas: 100, minCota: 27.72, minBolao: 2772 },
-  12: { apostas: 924, minCotas: 2, maxCotas: 100, minCota: 55.44, minBolao: 5544 },
-  13: { apostas: 1716, minCotas: 2, maxCotas: 100, minCota: 102.96, minBolao: 10296 },
-  14: { apostas: 3003, minCotas: 2, maxCotas: 100, minCota: 180.18, minBolao: 18018 },
-  15: { apostas: 5005, minCotas: 2, maxCotas: 100, minCota: 300.3, minBolao: 30030 },
+  6: { minCotas: 2, maxCotas: 8, minBolao: 18 },
+  7: { minCotas: 2, maxCotas: 50, minBolao: 42 },
+  8: { minCotas: 2, maxCotas: 100, minBolao: 168 },
+  9: { minCotas: 2, maxCotas: 100, minBolao: 504 },
+  10: { minCotas: 2, maxCotas: 100, minBolao: 1260 },
+  11: { minCotas: 2, maxCotas: 100, minBolao: 2772 },
+  12: { minCotas: 2, maxCotas: 100, minBolao: 5544 },
+  13: { minCotas: 2, maxCotas: 100, minBolao: 10296 },
+  14: { minCotas: 2, maxCotas: 100, minBolao: 18018 },
+  15: { minCotas: 2, maxCotas: 100, minBolao: 30030 },
 };
 
-// ====================== FUNÇÕES AUXILIARES ======================
+// ====================== FUNÇÕES DE ERRO ======================
 function limparErros() {
-  document.querySelectorAll("input").forEach((input) => {
-    input.classList.remove("erro");
-  });
-  document.querySelectorAll(".erro-info").forEach((msg) => {
-    msg.style.display = "none";
-  });
+  document.querySelectorAll("input").forEach((i) => i.classList.remove("erro"));
+  document.querySelectorAll(".erro-info").forEach((e) => (e.style.display = "none"));
 }
 
-function marcarErro(idCampo, idMensagem, texto) {
-  const campo = document.getElementById(idCampo);
-  const mensagem = document.getElementById(idMensagem);
-
-  campo.classList.add("erro");
-  mensagem.textContent = texto;
-  mensagem.style.display = "block";
+function erro(campo, msgId, texto) {
+  document.getElementById(campo).classList.add("erro");
+  const msg = document.getElementById(msgId);
+  msg.textContent = texto;
+  msg.style.display = "block";
 }
 
-// ====================== CÁLCULO DO BOLÃO ======================
+// ====================== CÁLCULO ======================
 function calcularCustoBolao() {
   limparErros();
 
-  const numApostas = parseInt(document.getElementById("numApostas").value);
-  const numNumeros = parseInt(document.getElementById("numNumeros").value);
-  const numCotas = parseInt(document.getElementById("numCotas").value);
+  const apostas = parseInt(document.getElementById("numApostas").value);
+  const numeros = parseInt(document.getElementById("numNumeros").value);
+  const cotas = parseInt(document.getElementById("numCotas").value);
 
   let valido = true;
 
-  // Validação básica
-  if (isNaN(numNumeros) || numNumeros < 6 || numNumeros > 15) {
-    marcarErro(
-      "numNumeros",
-      "erroNumeros",
-      "Quantidade de números deve estar entre 6 e 15."
-    );
+  if (isNaN(apostas) || apostas < 1 || apostas > 10) {
+    erro("numApostas", "erroApostas", "Máximo permitido: 10 apostas.");
     valido = false;
   }
 
-  if (!regrasBolao[numNumeros]) {
+  if (isNaN(numeros) || numeros < 6 || numeros > 15) {
+    erro("numNumeros", "erroNumeros", "Escolha entre 6 e 15 números.");
     valido = false;
   }
 
-  const regra = regrasBolao[numNumeros];
+  if (!regrasBolao[numeros]) valido = false;
 
-  // Validação de apostas
-  if (isNaN(numApostas) || numApostas < 1 || numApostas > 10) {
-    marcarErro(
-      "numApostas",
-      "erroApostas",
-      "O bolão pode ter no máximo 10 apostas."
-    );
-    valido = false;
-  }
+  const regra = regrasBolao[numeros];
 
-  // Validação de cotas
-  if (
-    isNaN(numCotas) ||
-    numCotas < regra.minCotas ||
-    numCotas > regra.maxCotas
-  ) {
-    marcarErro(
+  if (isNaN(cotas) || cotas < regra.minCotas || cotas > regra.maxCotas) {
+    erro(
       "numCotas",
       "erroCotas",
-      `Para ${numNumeros} números, o bolão deve ter entre ${regra.minCotas} e ${regra.maxCotas} cotas.`
+      `Para ${numeros} números: ${regra.minCotas} a ${regra.maxCotas} cotas.`
     );
     valido = false;
   }
 
   if (!valido) return;
 
-  // ====================== CÁLCULO ======================
-  const custoTotal = regra.minBolao * numApostas;
-  const custoPorCota = custoTotal / numCotas;
+  const total = regra.minBolao * apostas;
+  const valorCota = total / cotas;
 
   document.getElementById("resultado").value =
-    `Custo total do Bolão: R$ ${custoTotal.toFixed(2)}\n` +
-    `Valor por Cota: R$ ${custoPorCota.toFixed(2)}`;
+    `Custo total: R$ ${total.toFixed(2)}\n` +
+    `Valor por cota: R$ ${valorCota.toFixed(2)}`;
 }
 
-// ====================== SORTEIO DE NÚMEROS ======================
+// ====================== SORTEIO ======================
 function sortearNumero(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -100,31 +76,23 @@ function sortearNumero(min, max) {
 let contadorJogo = 1;
 
 function sortearNumeros() {
-  const numeroInicial = parseInt(document.getElementById("numeroInicial").value);
-  const numeroFinal = parseInt(document.getElementById("numeroFinal").value);
+  const ini = parseInt(document.getElementById("numeroInicial").value);
+  const fim = parseInt(document.getElementById("numeroFinal").value);
   const total = parseInt(document.getElementById("numeroTotalJogo").value);
 
-  if (
-    isNaN(numeroInicial) ||
-    isNaN(numeroFinal) ||
-    isNaN(total) ||
-    numeroInicial > numeroFinal ||
-    total < 6 ||
-    total > 20
-  ) {
+  if (isNaN(ini) || isNaN(fim) || isNaN(total) || ini > fim || total < 6 || total > 20)
     return;
+
+  let nums = [];
+  while (nums.length < total) {
+    const n = sortearNumero(ini, fim);
+    if (!nums.includes(n)) nums.push(n);
   }
 
-  let numeros = [];
+  nums.sort((a, b) => a - b);
 
-  while (numeros.length < total) {
-    const n = sortearNumero(numeroInicial, numeroFinal);
-    if (!numeros.includes(n)) numeros.push(n);
-  }
+  document.getElementById("resultado1").value +=
+    `Jogo ${contadorJogo}: ${nums.join(", ")}\n`;
 
-  numeros.sort((a, b) => a - b);
-
-  const resultado = document.getElementById("resultado1");
-  resultado.value += `Jogo ${contadorJogo}: ${numeros.join(", ")}\n`;
   contadorJogo++;
 }
