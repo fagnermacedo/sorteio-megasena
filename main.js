@@ -5,15 +5,28 @@ const PRECO_UNITARIO = {
     16: 48048.00, 17: 74256.00, 18: 111384.00, 19: 162792.00, 20: 232560.00
 };
 
-function limparErros() {
-    document.querySelectorAll("input").forEach(input => {
-        input.classList.remove("erro");
-    });
+// Funções de Inicialização Dinâmica
+window.onload = function() {
+    atualizarDataModificacao();
+    atualizarContadorVisitas();
+};
+
+function atualizarDataModificacao() {
+    // Pega a data de modificação do documento
+    const data = new Date(document.lastModified);
+    const opcoes = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+    document.getElementById('dataUpdate').innerText = `Atualizado em: ${data.toLocaleDateString('pt-BR', opcoes)}`;
+}
+
+function atualizarContadorVisitas() {
+    // Contador local (armazenado no navegador do usuário)
+    let visitas = localStorage.getItem('contagem_visitas') || 0;
+    visitas++;
+    localStorage.setItem('contagem_visitas', visitas);
+    document.getElementById('valorVisitas').innerText = visitas;
 }
 
 function calcularCusto() {
-    limparErros();
-
     const jogos = Number(document.getElementById('qtdApostas').value);
     const dezenas = Number(document.getElementById('numerosPorAposta').value);
     const cotas = Number(document.getElementById('qtdCotas').value);
@@ -23,7 +36,6 @@ function calcularCusto() {
         return;
     }
 
-    // Lógica corrigida: Preço de um jogo (ex: 168,00) * quantidade de jogos (ex: 8)
     const custoTotal = PRECO_UNITARIO[dezenas] * jogos;
     const valorPorCota = custoTotal / cotas;
 
@@ -39,7 +51,7 @@ function sortearNumeros() {
     const dezenasPorJogo = Number(document.getElementById('numerosPorAposta').value) || 6;
     const grid = document.getElementById('gridSorteio');
     
-    grid.innerHTML = ""; // Limpa resultados anteriores
+    grid.innerHTML = ""; 
 
     for (let i = 1; i <= totalJogos; i++) {
         let numeros = new Set();
@@ -47,10 +59,7 @@ function sortearNumeros() {
             const n = Math.floor(Math.random() * 60) + 1;
             numeros.add(n);
         }
-
-        const listaOrdenada = Array.from(numeros).sort((a, b) => a - b)
-                                   .map(n => n.toString().padStart(2, '0'));
-        
+        const listaOrdenada = Array.from(numeros).sort((a, b) => a - b).map(n => n.toString().padStart(2, '0'));
         exibirJogoNoGrid(i, listaOrdenada);
     }
 }
@@ -60,19 +69,16 @@ function exibirJogoNoGrid(index, dezenas) {
     const linha = document.createElement('div');
     linha.className = 'linha-jogo';
 
-    // Número sequencial do jogo (01, 02...)
     const seq = document.createElement('span');
     seq.className = 'sequencial';
     seq.innerText = index.toString().padStart(2, '0');
     linha.appendChild(seq);
 
-    // Bolas numeradas
     dezenas.forEach(d => {
         const bola = document.createElement('span');
         bola.className = 'bola';
         bola.innerText = d;
         linha.appendChild(bola);
     });
-
     grid.appendChild(linha);
 }
