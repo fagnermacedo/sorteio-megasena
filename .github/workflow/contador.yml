@@ -4,6 +4,10 @@ on:
   repository_dispatch:
     types: [log_acesso]
 
+# Permissões necessárias para que a Action possa fazer commit no repositório
+permissions:
+  contents: write
+
 jobs:
   update-log:
     runs-on: ubuntu-latest
@@ -13,18 +17,21 @@ jobs:
 
       - name: Atualizar JSON de Acessos
         run: |
-          # Extrai os dados enviados pelo JavaScript
+          # Extrai os dados enviados pelo JavaScript do site
           IP="${{ github.event.client_payload.ip }}"
           NAVEGADOR="${{ github.event.client_payload.navegador }}"
           DATA="${{ github.event.client_payload.data }}"
           
-          # Incrementa o contador e adiciona ao histórico usando 'jq' (processador de JSON)
-          jq ".total_visitas += 1 | .historico += [{\"data\": \"$DATA\", \"ip\": \"$IP\", \"navegador\": \"$NAVEGADOR\"}]" acessos.json > tmp.json && mv tmp.json acessos.json
+          # Caminho correto do arquivo baseado na sua estrutura
+          FILE_PATH=".github/workflow/acessos.json"
+          
+          # Incrementa o contador e adiciona a visita ao histórico usando o utilitário jq
+          jq ".total_visitas += 1 | .historico += [{\"data\": \"$DATA\", \"ip\": \"$IP\", \"navegador\": \"$NAVEGADOR\"}]" $FILE_PATH > tmp.json && mv tmp.json $FILE_PATH
 
       - name: Commit e Push das alterações
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add acessos.json
-          git commit -m "Novo acesso registrado: $(date)"
+          git add .github/workflow/acessos.json
+          git commit -m "Novo acesso registrado via site: $(date)"
           git push
