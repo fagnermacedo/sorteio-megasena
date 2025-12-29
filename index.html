@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorteio Mega-Sena - Fagner Sá</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,13 +14,13 @@
         <h3>Bolão Mega Sena</h3>
 
         <label>Quantidade de Jogos (1 a 10)</label>
-        <input type="number" id="qtdApostas" min="1" max="10" value="1">
+        <input type="number" id="qtdApostas" value="8">
 
-        <label>Números por Aposta (6 a 20)</label>
-        <input type="number" id="numerosPorAposta" min="6" max="20" value="6">
+        <label>Números por Jogo (6 a 20)</label>
+        <input type="number" id="numerosPorAposta" value="8">
 
         <label>Quantidade de Cotas</label>
-        <input type="number" id="qtdCotas" min="1" value="1">
+        <input type="number" id="qtdCotas" value="24">
 
         <button onclick="calcularCusto()">Calcular Custo Bolão</button>
 
@@ -30,17 +31,17 @@
 
     <div class="box">
         <h3>Sorteio Rápido</h3>
-        <p class="info-fixa">Intervalo: 01 a 60</p>
+        <p class="info-fixa">Intervalo fixo: 01 a 60</p>
 
         <button onclick="sortearNumeros()">Gerar Apostas Agora</button>
 
-        <div id="resultadoSorteioGrid"></div>
+        <div id="gridSorteio"></div>
     </div>
 
 </div>
 
 <footer class="footer-discreto">
-    <div id="dataUpdate">Atualizado dia 29/12/2025 as 16:30</div>
+    <div id="dataUpdate">Atualizado dia 29/12/2025 as 16:55</div>
     <div id="contadorVisitas">Visitas: 1234</div>
 </footer>
 
