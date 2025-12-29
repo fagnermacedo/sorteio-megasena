@@ -26,7 +26,7 @@ function atualizarDataModificacao() {
 
 async function obterTotalVisitas() {
     try {
-        const res = await fetch('https://raw.githubusercontent.com/fagnermacedo/sorteio-megasena/main/acessos.json');
+        const res = await fetch('https://raw.githubusercontent.com/fagnermacedo/sorteio-megasena/main/.github/workflow/acessos.json');
         const dados = await res.json();
         const elemento = document.getElementById('valorVisitas');
         if(elemento) elemento.innerText = dados.total_visitas;
