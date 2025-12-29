@@ -1,1 +1,30 @@
+name: Contador de Visitas Dinâmico
 
+on:
+  repository_dispatch:
+    types: [log_acesso]
+
+jobs:
+  update-log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Atualizar JSON de Acessos
+        run: |
+          # Extrai os dados enviados pelo JavaScript
+          IP="${{ github.event.client_payload.ip }}"
+          NAVEGADOR="${{ github.event.client_payload.navegador }}"
+          DATA="${{ github.event.client_payload.data }}"
+          
+          # Incrementa o contador e adiciona ao histórico usando 'jq' (processador de JSON)
+          jq ".total_visitas += 1 | .historico += [{\"data\": \"$DATA\", \"ip\": \"$IP\", \"navegador\": \"$NAVEGADOR\"}]" acessos.json > tmp.json && mv tmp.json acessos.json
+
+      - name: Commit e Push das alterações
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add acessos.json
+          git commit -m "Novo acesso registrado: $(date)"
+          git push
