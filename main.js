@@ -1,76 +1,80 @@
-function limparErros() {
-    document.querySelectorAll("input").forEach(input => {
-        input.classList.remove("erro");
-    });
-}
+// Dados oficiais Loterias Caixa para Bolão
+const DADOS_BOLAO = {
+    6:  { minBolao: 18.00,  minCota: 7.00 },
+    7:  { minBolao: 42.00,  minCota: 8.00 },
+    8:  { minBolao: 168.00, minCota: 8.00 },
+    9:  { minBolao: 504.00, minCota: 8.00 },
+    10: { minBolao: 1260.00, minCota: 12.60 },
+    11: { minBolao: 2772.00, minCota: 27.72 },
+    12: { minBolao: 5544.00, minCota: 55.44 },
+    13: { minBolao: 10296.00, minCota: 102.96 },
+    14: { minBolao: 18018.00, minCota: 180.18 },
+    15: { minBolao: 30030.00, minCota: 300.30 },
+    16: { minBolao: 48048.00, minCota: 480.48 },
+    17: { minBolao: 74256.00, minCota: 742.56 },
+    18: { minBolao: 111384.00, minCota: 1113.84 },
+    19: { minBolao: 162792.00, minCota: 1627.92 },
+    20: { minBolao: 232560.00, minCota: 2325.60 }
+};
 
 function calcularCusto() {
-    limparErros();
-
-    const apostas = Number(qtdApostas.value);
-    const numeros = Number(numerosPorAposta.value);
+    const numDezenas = Number(numerosPorAposta.value);
     const cotas = Number(qtdCotas.value);
+    const dados = DADOS_BOLAO[numDezenas];
 
-    let valido = true;
-
-    if (apostas < 1 || apostas > 10) {
-        qtdApostas.classList.add("erro");
-        valido = false;
-    }
-
-    if (numeros < 6 || numeros > 15) {
-        numerosPorAposta.classList.add("erro");
-        valido = false;
-    }
-
-    if (cotas <= 0) {
-        qtdCotas.classList.add("erro");
-        valido = false;
-    }
-
-    if (!valido) {
-        resultadoCusto.innerHTML = "Corrija os campos destacados.";
+    if (!dados) {
+        resultadoCusto.innerHTML = "Escolha entre 6 e 20 números.";
         return;
     }
 
-    const custoPorAposta = numeros * 10;
-    const custoTotal = custoPorAposta * apostas;
+    // No Bolão oficial, o custo total é fixo pela quantidade de dezenas escolhidas
+    const custoTotal = dados.minBolao;
     const valorPorCota = custoTotal / cotas;
 
     resultadoCusto.innerHTML = `
-        Custo total: R$ ${custoTotal.toFixed(2)}<br>
-        Valor por cota: R$ ${valorPorCota.toFixed(2)}
+        <strong>Custo Mínimo do Bolão:</strong> R$ ${custoTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}<br>
+        <strong>Valor por Cota:</strong> R$ ${valorPorCota.toLocaleString('pt-BR', {minimumFractionDigits: 2})}<br>
+        <small style="color: #82c91e">*Valores sugeridos conforme tabela Caixa.</small>
     `;
 }
 
 function sortearNumeros() {
-    limparErros();
+    const qtdJogos = Number(qtdApostas.value) || 1;
+    const qtdDezenas = Number(numerosPorAposta.value) || 6;
+    const grid = document.getElementById('resultadoSorteioGrid');
+    
+    grid.innerHTML = ""; 
 
-    const inicio = Number(numeroInicial.value);
-    const fim = Number(numeroFinal.value);
-    const qtdNumeros = Number(numerosPorAposta.value);
+    for (let i = 1; i <= qtdJogos; i++) {
+        let numeros = new Set();
+        while (numeros.size < qtdDezenas) {
+            const n = Math.floor(Math.random() * 60) + 1;
+            numeros.add(n);
+        }
 
-    let valido = true;
-
-    if (inicio >= fim) {
-        numeroInicial.classList.add("erro");
-        numeroFinal.classList.add("erro");
-        valido = false;
+        const listaOrdenada = Array.from(numeros).sort((a, b) => a - b)
+                                   .map(n => n.toString().padStart(2, '0'));
+        
+        renderizarLinhaJogo(i, listaOrdenada);
     }
+}
 
-    if (!valido) {
-        resultadoSorteio.value = "Corrija os campos destacados.";
-        return;
-    }
+function renderizarLinhaJogo(index, dezenas) {
+    const grid = document.getElementById('resultadoSorteioGrid');
+    const linha = document.createElement('div');
+    linha.className = 'linha-jogo';
 
-    let numeros = new Set();
+    const seq = document.createElement('span');
+    seq.className = 'sequencial';
+    seq.innerText = index.toString().padStart(2, '0');
+    linha.appendChild(seq);
 
-    while (numeros.size < qtdNumeros) {
-        const n = Math.floor(Math.random() * (fim - inicio + 1)) + inicio;
-        numeros.add(n);
-    }
+    dezenas.forEach(d => {
+        const bola = document.createElement('span');
+        bola.className = 'bola';
+        bola.innerText = d;
+        linha.appendChild(bola);
+    });
 
-    const listaOrdenada = Array.from(numeros).sort((a, b) => a - b);
-
-    resultadoSorteio.value = listaOrdenada.join(" - ");
+    grid.appendChild(linha);
 }
