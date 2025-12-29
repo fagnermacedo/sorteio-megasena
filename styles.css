@@ -1,91 +1,58 @@
-/* ================== LAYOUT ORIGINAL ================== */
 .container {
   display: flex;
   gap: 30px;
   justify-content: center;
-  margin-top: 100px;
-  height: 400px;
+  margin-top: 60px;
 }
 
 .formularioCalculaCusto,
 .formularioRealizaSorteio {
-  border: solid 1px;
+  border: 1px solid #333;
   background-color: #ede0e0;
 }
 
-.formBolao {
+.formBolao,
+.formSorteio {
   display: flex;
   flex-direction: column;
   padding: 20px;
 }
 
-#numApostas,
-#numNumeros,
-#numCotas {
-  max-width: 40px;
-  height: 20px;
+input {
+  max-width: 60px;
+  height: 24px;
 }
 
-#calculaCusto {
-  height: 50px;
-  width: 120px;
+button {
+  margin-top: 15px;
+  height: 40px;
+  width: 140px;
   background-color: blue;
   color: white;
-  margin-top: 10px;
+  cursor: pointer;
 }
 
-#resultado {
-  margin: 0 20px;
-  height: 70px;
+textarea {
+  margin: 10px;
+  width: 90%;
 }
 
-/* ================== REGRAS DO BOLÃO ================== */
-.regrasBolao {
-  padding: 20px;
-  font-size: 13px;
-}
-
-.regrasBolao ul {
-  padding-left: 20px;
-}
-
-.regrasBolao li {
-  margin-bottom: 6px;
-}
-
-/* ================== VALIDAÇÃO VISUAL ================== */
+/* ================= ERROS ================= */
 .erro {
-  border: 2px solid red !important;
-  background-color: #ffecec;
+  border: 2px solid red;
 }
 
 .erro-info {
-  color: red;
-  font-size: 11px;
-  margin-bottom: 8px;
   display: none;
-  max-width: 220px;
+  color: red;
+  font-size: 12px;
+  margin-bottom: 10px;
 }
 
-/* Exibe a explicação ao passar o mouse */
-.erro:hover + .erro-info {
-  display: block;
-}
-
-/* ================== RESPONSIVO ================== */
+/* ================= MOBILE ================= */
 @media (max-width: 600px) {
   .container {
     flex-direction: column;
-    justify-content: center;
-  }
-
-  .formularioCalculaCusto,
-  .formularioRealizaSorteio {
-    font-size: 12px;
-    margin-bottom: 20px;
-  }
-
-  #resultado {
-    max-width: 340px;
+    align-items: center;
   }
 }
