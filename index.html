@@ -1,46 +1,62 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Bolão</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador Mega-Sena</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+    <header>
+        <h1>MEGA-SENA</h1>
+    </header>
 
-    <div class="box">
-        <h3>Bolão</h3>
+    <main class="container">
+        <section class="card">
+            <h2>Bolão Generator</h2>
+            
+            <div class="input-group">
+                <label for="inputQtdApostas">Número de Apostas (1 a 10)</label>
+                <input type="number" id="inputQtdApostas" min="1" max="10" value="1">
+            </div>
 
-        <label>Número de Apostas (máx. 10)</label>
-        <input type="number" id="qtdApostas" data-tooltip="De 1 até 10 apostas">
+            <div class="input-group">
+                <label for="inputNumerosPorAposta">Números por Aposta (6 a 15)</label>
+                <input type="number" id="inputNumerosPorAposta" min="6" max="15" value="6">
+            </div>
 
-        <label>Números por Aposta (6 a 15)</label>
-        <input type="number" id="numerosPorAposta" data-tooltip="Mínimo 6 e máximo 15 números">
+            <div class="input-group">
+                <label for="inputCotas">Número de Cotas (mín. 1)</label>
+                <input type="number" id="inputCotas" min="1" value="1">
+            </div>
 
-        <label>Número de Cotas</label>
-        <input type="number" id="qtdCotas" data-tooltip="Deve ser maior que zero">
+            <button onclick="calcularCusto()">Calcular Custo</button>
 
-        <button onclick="calcularCusto()">Calcular Custo</button>
+            <div class="resultado-custo">
+                <input type="text" id="displayCusto" readonly placeholder="R$ 0,00">
+                <label>Custo Total (R$)</label>
+            </div>
+            
+            <p class="brand">Powered by Fagner Sá</p>
+        </section>
 
-        <div class="resultado" id="resultadoCusto"></div>
-    </div>
+        <section class="card">
+            <h2>Sorteio Rápido</h2>
+            <p class="info-fixa">Números de 01 a 60</p>
+            
+            <button class="btn-sortear" onclick="gerarTodosOsJogos()">Sortear Números</button>
 
-    <div class="box">
-        <h3>Sorteio</h3>
+            <div id="containerResultados" class="resultados-grid">
+                </div>
+        </section>
+    </main>
 
-        <label>Número Inicial</label>
-        <input type="number" id="numeroInicial" data-tooltip="Valor inicial do intervalo">
+    <footer>
+        <div id="dataAtualizacao">Atualizado dia 29/12/2025 as 15:55</div>
+        <div id="contadorVisitas">Visitas: 123456</div>
+    </footer>
 
-        <label>Número Final</label>
-        <input type="number" id="numeroFinal" data-tooltip="Valor final do intervalo">
-
-        <button onclick="sortearNumeros()">Sortear Números</button>
-
-        <textarea id="resultadoSorteio" readonly></textarea>
-    </div>
-
-</div>
-<script src="main.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
