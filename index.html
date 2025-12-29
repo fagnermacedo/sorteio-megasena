@@ -3,74 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bolão Mega-Sena</title>
+    <title>Sorteio Mega-Sena</title>
 
     <link rel="stylesheet" href="styles.css" />
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
   </head>
-
   <body>
     <div class="cabecalho">
-      <header class="titulo_header_pagina">
-        <h1>Boa sorte 🍀</h1>
-      </header>
-      <h1 class="titulo">Prêmio estimado de 1 Bilhão (2025)</h1>
+      <h1>Boa sorte 🍀</h1>
+      <h2>Prêmio estimado de 1 Bilhão (2025)</h2>
     </div>
 
     <div class="container">
-      <!-- ================== FORMULÁRIO BOLÃO ================== -->
+      <!-- ================== BOLÃO ================== -->
       <div class="formularioCalculaCusto">
-        <form id="formBolao" class="formBolao" novalidate>
-          <h3>Dados do Bolão</h3>
-
-          <label for="numApostas">
+        <form class="formBolao">
+          <label>
             Número de Apostas
-            <strong>(máx. 10 por bolão)</strong>
+            <strong>(máx. 10)</strong>
           </label>
           <input type="number" id="numApostas" />
-          <div class="erro-info" id="erroApostas"></div>
+          <span id="erroApostas" class="erro-info"></span>
 
-          <label for="numNumeros">
+          <label>
             Números por Aposta
-            <strong>(6 a 20 números)</strong>
+            <strong>(6 a 15)</strong>
           </label>
           <input type="number" id="numNumeros" />
-          <div class="erro-info" id="erroNumeros"></div>
+          <span id="erroNumeros" class="erro-info"></span>
 
-          <label for="numCotas">
-            Total de Cotas
-            <strong>(mín. 2 / máx. 100)</strong>
+          <label>
+            Número de Cotas
           </label>
           <input type="number" id="numCotas" />
-          <div class="erro-info" id="erroCotas"></div>
+          <span id="erroCotas" class="erro-info"></span>
 
-          <button type="button" id="calculaCusto">
+          <button type="button" id="calculaCusto" onclick="calcularCustoBolao()">
             Calcular Custo
           </button>
         </form>
 
-        <textarea
-          id="resultado"
-          rows="3"
-          cols="50"
-          readonly
-          placeholder="Resultado do cálculo aparecerá aqui..."
-        ></textarea>
+        <textarea id="resultado" rows="3" readonly></textarea>
       </div>
 
-      <!-- ================== REGRAS DO BOLÃO ================== -->
+      <!-- ================== SORTEIO ================== -->
       <div class="formularioRealizaSorteio">
-        <div class="regrasBolao">
-          <h3>Regras do Bolão Mega-Sena</h3>
-          <ul>
-            <li>✔ Valor mínimo do bolão: <strong>R$ 18,00</strong></li>
-            <li>✔ Valor mínimo da cota: <strong>a partir de R$ 7,00</strong></li>
-            <li>✔ Mínimo de <strong>2</strong> cotas por bolão</li>
-            <li>✔ Máximo de <strong>100</strong> cotas por bolão</li>
-            <li>✔ Até <strong>10 apostas</strong> por bolão</li>
-            <li>✔ Todas as apostas devem ter a mesma quantidade de números</li>
-          </ul>
-        </div>
+        <form class="formSorteio">
+          <label>Número Inicial</label>
+          <input type="number" id="numeroInicial" />
+
+          <label>Número Final</label>
+          <input type="number" id="numeroFinal" />
+
+          <label>Números por Jogo</label>
+          <input type="number" id="numeroTotalJogo" />
+
+          <button type="button" id="sortearNumerosLayout" onclick="sortearNumeros()">
+            Sortear Números
+          </button>
+        </form>
+
+        <textarea id="resultado1" rows="10" readonly></textarea>
       </div>
     </div>
   </body>
