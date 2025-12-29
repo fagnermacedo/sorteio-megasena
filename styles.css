@@ -1,39 +1,44 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
     background: #121212;
-    color: #f0f0f0;
+    color: #e0e0e0;
     margin: 0;
-    padding-bottom: 70px;
+    padding-bottom: 80px;
 }
 
 .container {
     display: flex;
     justify-content: center;
     gap: 30px;
-    padding: 30px;
+    padding: 40px 20px;
     flex-wrap: wrap;
 }
 
 .box {
     background: #1e1e1e;
     border: 1px solid #333;
-    padding: 20px;
-    width: 450px; /* Um pouco mais largo para caber as 20 bolas */
-    border-radius: 8px;
+    padding: 25px;
+    width: 440px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-h3 { color: #82c91e; margin-bottom: 20px; }
+h3 { color: #82c91e; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
 
-label { display: block; margin-top: 15px; color: #aaa; font-size: 0.85rem; }
+label { display: block; margin-top: 15px; font-size: 0.85rem; color: #aaa; }
+
+.info-fixa { color: #666; font-size: 0.8rem; margin-bottom: 15px; }
 
 input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-top: 5px;
-    border-radius: 4px;
-    border: 1px solid #444;
+    border-radius: 6px;
+    border: none;
     background: #fff;
+    color: #333;
     font-weight: bold;
+    box-sizing: border-box;
 }
 
 button {
@@ -45,31 +50,26 @@ button {
     border: none;
     cursor: pointer;
     font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+button:hover { background: #6fb319; }
+
+.resultado {
+    margin-top: 20px;
+    background: #252525;
+    padding: 15px;
+    border-left: 4px solid #82c91e;
     border-radius: 4px;
 }
 
-.resultado {
-    margin-top: 15px;
-    background: #282828;
-    padding: 15px;
-    border-left: 4px solid #82c91e;
-}
+#gridSorteio { margin-top: 20px; max-height: 400px; overflow-y: auto; }
 
-#resultadoSorteioGrid {
-    margin-top: 20px;
-    max-height: 400px;
-    overflow-y: auto;
-}
+.linha-jogo { display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; flex-wrap: wrap; }
 
-.linha-jogo {
-    display: flex;
-    flex-wrap: wrap; /* Importante para jogos de 20 números */
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #333;
-}
-
-.sequencial { color: #82c91e; font-weight: bold; min-width: 30px; }
+.sequencial { color: #82c91e; font-weight: bold; margin-right: 15px; min-width: 25px; }
 
 .bola {
     background: #fff;
@@ -82,20 +82,21 @@ button {
     border-radius: 50%;
     margin: 4px;
     font-weight: bold;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 }
 
-.assinatura { font-size: 0.7rem; color: #444; margin-top: 20px; text-align: center; }
+.assinatura { font-size: 0.7rem; color: #444; margin-top: 25px; text-align: center; }
 
 .footer-discreto {
     position: fixed;
     bottom: 0;
     width: 100%;
     background: #000;
-    padding: 15px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 15px 40px;
+    box-sizing: border-box;
     font-size: 0.75rem;
-    color: #666;
+    color: #555;
     border-top: 1px solid #333;
 }
