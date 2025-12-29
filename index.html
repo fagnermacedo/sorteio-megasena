@@ -1,62 +1,49 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador Mega-Sena</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sorteio Mega-Sena - Fagner Sá</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <header>
-        <h1>MEGA-SENA</h1>
-    </header>
+<div class="container">
 
-    <main class="container">
-        <section class="card">
-            <h2>Bolão Generator</h2>
-            
-            <div class="input-group">
-                <label for="inputQtdApostas">Número de Apostas (1 a 10)</label>
-                <input type="number" id="inputQtdApostas" min="1" max="10" value="1">
-            </div>
+    <div class="box">
+        <h3>Bolão Generator</h3>
 
-            <div class="input-group">
-                <label for="inputNumerosPorAposta">Números por Aposta (6 a 15)</label>
-                <input type="number" id="inputNumerosPorAposta" min="6" max="15" value="6">
-            </div>
+        <label>Quantidade de Jogos (1 a 10)</label>
+        <input type="number" id="qtdApostas" min="1" max="10" value="1">
 
-            <div class="input-group">
-                <label for="inputCotas">Número de Cotas (mín. 1)</label>
-                <input type="number" id="inputCotas" min="1" value="1">
-            </div>
+        <label>Números por Aposta (6 a 20)</label>
+        <input type="number" id="numerosPorAposta" min="6" max="20" value="6">
 
-            <button onclick="calcularCusto()">Calcular Custo</button>
+        <label>Quantidade de Cotas</label>
+        <input type="number" id="qtdCotas" min="1" value="1">
 
-            <div class="resultado-custo">
-                <input type="text" id="displayCusto" readonly placeholder="R$ 0,00">
-                <label>Custo Total (R$)</label>
-            </div>
-            
-            <p class="brand">Powered by Fagner Sá</p>
-        </section>
+        <button onclick="calcularCusto()">Calcular Custo Bolão</button>
 
-        <section class="card">
-            <h2>Sorteio Rápido</h2>
-            <p class="info-fixa">Números de 01 a 60</p>
-            
-            <button class="btn-sortear" onclick="gerarTodosOsJogos()">Sortear Números</button>
+        <div class="resultado" id="resultadoCusto"></div>
+        
+        <p class="assinatura">Powered by Fagner Sá</p>
+    </div>
 
-            <div id="containerResultados" class="resultados-grid">
-                </div>
-        </section>
-    </main>
+    <div class="box">
+        <h3>Sorteio Rápido</h3>
+        <p class="info-fixa">Intervalo: 01 a 60</p>
 
-    <footer>
-        <div id="dataAtualizacao">Atualizado dia 29/12/2025 as 15:55</div>
-        <div id="contadorVisitas">Visitas: 123456</div>
-    </footer>
+        <button onclick="sortearNumeros()">Gerar Apostas Agora</button>
 
-    <script src="script.js"></script>
+        <div id="resultadoSorteioGrid"></div>
+    </div>
+
+</div>
+
+<footer class="footer-discreto">
+    <div id="dataUpdate">Atualizado dia 29/12/2025 as 16:30</div>
+    <div id="contadorVisitas">Visitas: 1234</div>
+</footer>
+
+<script src="main.js"></script>
 </body>
 </html>
