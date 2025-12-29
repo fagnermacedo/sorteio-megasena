@@ -1,70 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sorteio Mega-Sena</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Bolão</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-    <link rel="stylesheet" href="styles.css" />
-    <script src="main.js" defer></script>
-  </head>
-  <body>
-    <div class="cabecalho">
-      <h1>Boa sorte 🍀</h1>
-      <h2>Prêmio estimado de 1 Bilhão (2025)</h2>
+<div class="container">
+
+    <div class="box">
+        <h3>Bolão</h3>
+
+        <label>Número de Apostas (máx. 10)</label>
+        <input type="number" id="qtdApostas" data-tooltip="De 1 até 10 apostas">
+
+        <label>Números por Aposta (6 a 15)</label>
+        <input type="number" id="numerosPorAposta" data-tooltip="Mínimo 6 e máximo 15 números">
+
+        <label>Número de Cotas</label>
+        <input type="number" id="qtdCotas" data-tooltip="Deve ser maior que zero">
+
+        <button onclick="calcularCusto()">Calcular Custo</button>
+
+        <div class="resultado" id="resultadoCusto"></div>
     </div>
 
-    <div class="container">
-      <!-- ================== BOLÃO ================== -->
-      <div class="formularioCalculaCusto">
-        <form class="formBolao">
-          <label>
-            Número de Apostas
-            <strong>(máx. 10)</strong>
-          </label>
-          <input type="number" id="numApostas" />
-          <span id="erroApostas" class="erro-info"></span>
+    <div class="box">
+        <h3>Sorteio</h3>
 
-          <label>
-            Números por Aposta
-            <strong>(6 a 15)</strong>
-          </label>
-          <input type="number" id="numNumeros" />
-          <span id="erroNumeros" class="erro-info"></span>
+        <label>Número Inicial</label>
+        <input type="number" id="numeroInicial" data-tooltip="Valor inicial do intervalo">
 
-          <label>
-            Número de Cotas
-          </label>
-          <input type="number" id="numCotas" />
-          <span id="erroCotas" class="erro-info"></span>
+        <label>Número Final</label>
+        <input type="number" id="numeroFinal" data-tooltip="Valor final do intervalo">
 
-          <button type="button" id="calculaCusto" onclick="calcularCustoBolao()">
-            Calcular Custo
-          </button>
-        </form>
+        <button onclick="sortearNumeros()">Sortear Números</button>
 
-        <textarea id="resultado" rows="3" readonly></textarea>
-      </div>
-
-      <!-- ================== SORTEIO ================== -->
-      <div class="formularioRealizaSorteio">
-        <form class="formSorteio">
-          <label>Número Inicial</label>
-          <input type="number" id="numeroInicial" />
-
-          <label>Número Final</label>
-          <input type="number" id="numeroFinal" />
-
-          <label>Números por Jogo</label>
-          <input type="number" id="numeroTotalJogo" />
-
-          <button type="button" id="sortearNumerosLayout" onclick="sortearNumeros()">
-            Sortear Números
-          </button>
-        </form>
-
-        <textarea id="resultado1" rows="10" readonly></textarea>
-      </div>
+        <textarea id="resultadoSorteio" readonly></textarea>
     </div>
-  </body>
+
+</div>
+
+<script src="script.js"></script>
+</body>
 </html>
